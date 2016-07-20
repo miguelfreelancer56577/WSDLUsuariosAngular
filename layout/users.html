@@ -1,0 +1,27 @@
+<!--<div class="row">
+<div class="col-md-3" ng-repeat="post in posts track by $index">
+<div class="well">
+<h3 class="postTitle"><a ui-sref="admin.singlePost({id:post.id, permalink:post.permalink})">{{post.title}}</a></h3>
+<h5>By: {{post.author}} | {{post.datePublished}}</h5>
+</div>
+</div>
+</div>-->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="well-sm">Usuarios</div>
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <td>id</td>
+            <td>username</td>
+            <td>password</td>
+            <td>email</td>
+        </tr>
+        <tr ng-repeat="user in users | orderBy:'-_id'">
+            <td>{{user.id}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.password}}</td>
+            <td>{{user.email}}</td>
+        </tr>
+    </table>
+    </div>
+</div>

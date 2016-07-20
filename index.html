@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="App">
+    <head>
+        <meta charset="UTF-8">
+        <title>Usuarios</title>
+        <link rel="stylesheet" href="css/bootstrap.css" />
+        <link rel="stylesheet" href="css/bootstrap-theme.css" />
+        <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/angular.js"></script>
+        <script type="text/javascript" src="js/angular-ui-router.js"></script>
+        <script type="text/javascript" src="js/soapclient.js"></script>
+        <script type="text/javascript" src="js/angular.soap.js"></script>
+        <script type="text/javascript">
+            angular.module('App',[
+                'App.controllers',
+                'ui.router' //this is the dependency on ui.router module
+            ]);
+            
+            angular.module('App').config(function($stateProvider, $urlRouterProvider){
+                $stateProvider.state('users',{
+                    url:'/allUsers',
+                    templateUrl: 'layout/users.html',
+                    controller: 'listusersController'
+                });
+                $urlRouterProvider.otherwise('/allUsers'); // when no route match found redirect to /allUsers
+            });
+            
+        
+            angular.module('App').factory('postService', function() {
+                return {
+                    users: 
+                            [{
+                                id: 1,
+                                username: "mangelt",
+                                password: "password",
+                                email: "mangelt@gmail.com"
+                            }]
+                }
+            });
+            
+            angular.module('App.controllers',[]).controller ('listusersController',function($scope,postService){
+                    //obtain the posts
+                    $scope.users=postService.users;
+                    
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container">
+        <br/>
+        <div class="jumbotron text-center">
+        <h1>Web Service</h1>
+        <p>How use in Angular</p>
+        </div>
+        <div ui-view></div>
+        <div class="row footer">
+        <div class="col-xs-12 text-center">
+        <p>The Single Page Blogger <app-version/></p>
+        </div>
+        </div>
+        </div>
+    </body>
+</html>
