@@ -19,7 +19,8 @@ and open the template in the editor.
         <script type="text/javascript">
             angular.module('App',[
                 'App.controllers',
-                'ui.router' //this is the dependency on ui.router module
+                'ui.router',
+                'angularSoap'
             ]);
             
             angular.module('App').config(function($stateProvider, $urlRouterProvider){
@@ -32,21 +33,21 @@ and open the template in the editor.
             });
             
         
-            angular.module('App').factory('postService', function() {
+            angular.module('App').factory('postService', function($soap) {
+                var base_url = "http://localhost:8080/WebService/UsuariosService";
                 return {
-                    users: 
-                            [{
-                                id: 1,
-                                username: "mangelt",
-                                password: "password",
-                                email: "mangelt@gmail.com"
-                            }]
+                    HelloWorld: function(){
+                        return $soap.post(base_url,"hello");
+                    }
                 }
             });
             
             angular.module('App.controllers',[]).controller ('listusersController',function($scope,postService){
+                postService.HelloWorld().then(function(response){
+                    $scope.hello = response;
+                });
                     //obtain the posts
-                    $scope.users=postService.users;
+//                    $scope.users=postService.users;
                     
             });
         </script>
